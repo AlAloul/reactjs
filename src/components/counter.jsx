@@ -11,6 +11,23 @@ class Counter extends Component {
     fontWeight: "bold"
   };
 
+  /*************** Event Handler Binding Method(1) **************** *
+  constructor() {
+    super();
+    this.handleIncrement = this.handleIncrement.bind(this);
+  }
+
+  handleIncrement() {
+    console.log("Increment Clicked " + this.state.count); // You cant use "this" directly in this method because you are calling it as an event handler, the solution is to bind "this" with this method in the constructor {see above}
+  }
+
+  /*************** Event Handler Binding Method(2) **************** */
+  // Convert the above function into an arrow function (arrow function can't re-bind the "this" keyword):
+  handleIncrement = () => {
+    console.log("Increment Clicked " + this.state.count);
+  };
+  /*************** End Event Handler Binding Method(2) **************** */
+
   renderTags() {
     if (this.state.tags.length === 0) return <p>There are no tags!</p>;
     return (
@@ -22,10 +39,6 @@ class Counter extends Component {
     );
   }
 
-  handleIncrement() {
-    console.log("Increment Clicked");
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -33,7 +46,7 @@ class Counter extends Component {
           {this.formatCount()}
         </span>
         <button
-          onClick={this.handleIncrement()}
+          onClick={this.handleIncrement}
           className="btn btn-secondary btn-sm"
         >
           Increment
